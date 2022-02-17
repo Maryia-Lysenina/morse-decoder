@@ -36,9 +36,30 @@ const MORSE_TABLE = {
     '----.':  '9',
     '-----':  '0',
 };
-
 function decode(expr) {
-    // write your solution here
+    let arr = [];
+    let newArr = [];
+    let str = '';
+    let count = 10;
+ for (let i = 0; i < expr.length; i++){
+    arr.push(expr.slice(i, count));
+    i = count-1;
+    count = count + 10;
+ }
+ for (elem of arr){
+     for (let i = 0; i < elem.length; i = i + 2){
+         if (elem[i] === '1' && elem[i+1] === '0') str += '.';
+         if (elem[i] === '1' && elem[i+1] === '1') str += '-';
+         if (elem === "**********") str = ' ';
+     }
+     newArr.push(str);
+     str = '';
+ }
+ for (elem of newArr){
+    if (elem === ' ') str += ' ';
+    else str += MORSE_TABLE[elem];    
+ }
+ return str;
 }
 
 module.exports = {
